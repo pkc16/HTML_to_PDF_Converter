@@ -3,6 +3,8 @@
 from tkinter import *
 from tkinter import messagebox
 import pdfkit
+import configparser
+import os
 
 class SimpleWindow(object):
 
@@ -47,10 +49,22 @@ class SimpleWindow(object):
             messagebox.showwarning("Invalid Entry", "Please enter both fields.")
             return
         else:
-            output_dir = r"C:\Users\Inspiron3650\Desktop\HTML_to_PDF"
-            path_wkthmltopdf = 'C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'
+            # get settings from config file
+            # first get the current directory
+            cur_dir = os.path.dirname(__file__)
+
+            # generate the absolute filepath of the output file
+            config_filename = "html_to_pdf_config.txt"
+            config_filepath = os.path.join(cur_dir, config_filename)
+
+            # now get the info from the config file and set variables
+            parser = configparser.ConfigParser()
+            parser.read_file(open(config_filepath))
+            output_dir = parser.get('Settings', 'output_directory')
+            path_wkthmltopdf = parser.get('Settings', 'wkhtmltopdf_path')
             config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
 
+            # now generate the pdf
             pdfkit.from_url(entered_url, output_dir + "\\" + entered_output,configuration=config)
 
 
