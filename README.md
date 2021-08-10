@@ -6,7 +6,7 @@ The settings inside of the config file (html_to_pdf_config.txt) should be modifi
 #### Usage
 Enter in the URL of a webpage.  Then specify the name of the output PDF file which the application will generate (include the ".pdf" file extension so your system will recognize the file as a PDF).
 
-#### Libraries used
+#### External Libraries used
 - tkinter
 - pdfkit
 
