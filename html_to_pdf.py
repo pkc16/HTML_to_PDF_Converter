@@ -63,6 +63,10 @@ class SimpleWindow(object):
             output_dir = parser.get('Settings', 'output_directory')
             path_wkthmltopdf = parser.get('Settings', 'wkhtmltopdf_path')
             config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
+            
+            # create the output directory if it doesn't exist
+            if not os.path.exists(output_dir):
+                os.makedirs(output_dir)
 
             # now generate the pdf
             pdfkit.from_url(entered_url, output_dir + "\\" + entered_output,configuration=config)
